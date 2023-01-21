@@ -27,8 +27,8 @@ import (
 type Book struct {
 	name         string
 	checkout     bool
-	checkouttime string
-	returntime   string
+	checkouttime time.Time
+	returntime   time.Time
 }
 type Member struct {
 	name string
@@ -37,14 +37,19 @@ type Member struct {
 
 func checkout(book *Book) {
 	book.checkout = true
+	book.checkouttime = time.Now()
 }
 func checkin(book *Book) {
 	book.checkout = false
+	book.returntime = time.Now()
 }
 
 func printbook(book Book) {
+	fmt.Println()
 	fmt.Println(book.name)
 	fmt.Println(book.checkout)
+	fmt.Println(book.checkouttime)
+	fmt.Println(book.returntime)
 
 }
 
@@ -78,22 +83,28 @@ func printMem(mem []Member) {
 
 }
 func main() {
-	p := fmt.Println
-	then := time.Date(2009, 11, 17, 20, 34, 58, 651387237, time.UTC)
-	p(then)
+	//p := fmt.Println
+	//then := time.Now()
+	//p(then)
+
+	//printLib(lib)
 	book1 := Book{}
 	book2 := Book{}
 	book3 := Book{}
-	john := Member{"John", book1}
-
+	lib := []Book{book1, book2, book3}
+	printLib(lib)
 	book1.name = "book1"
 	book2.name = "book2"
 	book3.name = "book3"
-	book1.checkout = true
-	lib := []Book{book1, book2, book3}
+	//book1.checkout = true
+	checkin(&book1)
+	checkout(&book2)
+	lib = []Book{book1, book2, book3}
 	printLib(lib)
-	printbook(book1)
-	printbook(book2)
+	//	printbook(book1)
+	//	printbook(book2)
+
+	john := Member{"John", book1}
 	mems := []Member{john}
 	printMem(mems)
 }
