@@ -36,7 +36,7 @@ func (player *Player) addHealth(amount uint) {
 
 func (player *Player) applyDamage(amount uint) {
 	// overflow check
-	if player.health-amount > player.health {
+	if player.health-amount < 0 {
 		player.health = 0
 	} else {
 		player.health -= amount
