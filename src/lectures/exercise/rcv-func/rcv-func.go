@@ -25,10 +25,11 @@ type Player struct {
 func (player *Player) maxStatSet(i int, j int) {
 	player.MaxEnergy = i
 	player.MaxHealth = j
+	player.printPlayer()
 
 }
 func (player *Player) statCH(i int, j int) {
-	fmt.Println(player)
+	player.printPlayer()
 	player.Health += i
 	player.Energy += j
 	if player.Health > player.MaxHealth {
@@ -45,12 +46,20 @@ func (player *Player) statCH(i int, j int) {
 		player.Energy = 0
 	}
 
-	fmt.Println(player)
+	player.printPlayer()
+}
+func (player *Player) printPlayer() {
+	fmt.Println()
+	fmt.Println("MaxEnergey: ", player.MaxEnergy)
+	fmt.Println("MaxHealth: ", player.MaxHealth)
+	fmt.Println("CurEnergey: ", player.Energy)
+	fmt.Println("CurHealth: ", player.Health)
+
 }
 
 func main() {
 	player1 := Player{}
 	player1.maxStatSet(5, 6)
 	player1.statCH(3, -1)
-	fmt.Println(player1)
+	player1.printPlayer()
 }
